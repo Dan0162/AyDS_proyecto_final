@@ -4,7 +4,8 @@ from flask_cors import CORS # Importamos CORS para peticiones de otros orígenes
 import os # Para poder conectarnos con el .env
 from werkzeug.security import generate_password_hash, check_password_hash
 
-app = Flask(__name__) # Crea la aplicación Flask
+app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False  # Ensure Flask jsonify outputs UTF-8
 
 CORS(app) # Habilita CORS pra toda la app, permitiendo que el frontend consuma este backend
 
@@ -22,7 +23,8 @@ def login():
             host="db",
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PW"),
-            database=os.getenv("DB_NAME")
+            database=os.getenv("DB_NAME"),
+            charset='utf8mb4'  # Ensure MySQL connection uses UTF-8
         )
         cursor = conn.cursor(dictionary=True)
 
@@ -69,7 +71,8 @@ def register():
             host="db",
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PW"),
-            database=os.getenv("DB_NAME")
+            database=os.getenv("DB_NAME"),
+            charset='utf8mb4'  # Ensure MySQL connection uses UTF-8
         )
         cursor = conn.cursor()
 

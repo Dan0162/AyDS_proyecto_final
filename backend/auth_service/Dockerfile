@@ -13,4 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Instala las dependencias definidas en requirements.txt sin usar caché
 COPY . /app
 
+# Forzar salida UTF-8
+ENV PYTHONIOENCODING=utf-8
+
 CMD ["python", "app.py"]

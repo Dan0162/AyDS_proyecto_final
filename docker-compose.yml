@@ -40,4 +40,4 @@ services:
       - auth_service
     
 #ejecutar docker en la terminal con .env file
-#docker-compose --env-file .env up -d   
+#docker-compose --env-file .env up -d

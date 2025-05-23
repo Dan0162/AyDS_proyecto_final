@@ -86,3 +86,6 @@ SELECT 'Inicialización completada' AS status;
 
 SHOW VARIABLES LIKE 'character_set%';
 SHOW VARIABLES LIKE 'collation%';
+
+/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET CHARACTER SET utf8mb4 */;
