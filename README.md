@@ -48,7 +48,7 @@ Aunque no está completamente implementada para transacciones en vivo, esta se d
 
 ## Base de Datos
 
-La base de datos fue desarrollada con **MySQL** en función a las necesidades del cliente, conteniendo diferentes tablas para el ingreso de los datos relevantes, como usuarios, talleres y reservas.
+La base de datos fue desarrollada con **MySQL** en función a las necesidades del cliente, conteniendo diferentes tablas para el ingreso de los datos relevantes, como usuarios, talleres y reservas. Se mantiene el archivo de la creación de la base para utilización en casos locales.
 
 **Diagrama Entidad-Relación:**
 
