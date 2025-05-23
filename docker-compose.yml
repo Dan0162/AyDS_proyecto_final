@@ -1,7 +1,7 @@
 services:
   # Servicio de backend (Flask)
-  backend:
-    build: ./backend
+  login:
+    build: ./login
     ports:
       - "5000:5000"
     depends_on:
