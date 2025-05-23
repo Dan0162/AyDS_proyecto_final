@@ -1,16 +1,16 @@
 services:
-  # Servicio de backend (Flask)
-  login:
-    build: ./login
+  # Servicio de Login y registro.
+  auth_service:
+    build: ./backend/auth_service
     ports:
       - "5000:5000"
     depends_on:
       - db
     environment:
-      - MYSQL_HOST=db
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=12345
-      - MYSQL_DATABASE=users_db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PW=${DB_PW}
+      - DB_HOST=db
       
   db:
     image: mysql:8.0
@@ -27,6 +27,17 @@ services:
     volumes:
       - ./mysql-init:/docker-entrypoint-initdb.d
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+
+      # Servicio: frontend (React)
+  frontend:
+    # Construye la imagen Docker desde la carpeta ./frontend
+    build: ./frontend
+    # Expone el puerto 3000 del contenedor en el puerto 3000 del host
+    ports:
+      - "3000:3000"
+    # Se asegura de que el backend esté corriendo antes de iniciar este servicio
+    depends_on:
+      - auth_service
     
 #ejecutar docker en la terminal con .env file
 #docker-compose --env-file .env up -d   
