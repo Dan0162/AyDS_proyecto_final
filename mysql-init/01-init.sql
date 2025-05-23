@@ -1,91 +1,46 @@
-CREATE DATABASE IF NOT EXISTS master_cook_db;
-USE master_cook_db;
+-- Crear la base de datos si no existe
+CREATE DATABASE IF NOT EXISTS users_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE users_db;
 
+-- Establecer el conjunto de caracteres
+SET NAMES 'utf8mb4';
+SET CHARACTER SET utf8mb4;
+
+-- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (
-	user_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(50) NOT NULL UNIQUE,
-	first_name VARCHAR(50) NOT NULL,
-	last_name VARCHAR(50) NOT NULL, 
-	email_address VARCHAR(100) NOT NULL UNIQUE,
-	phone_number VARCHAR(15) NOT NULL,
-	password_hash VARCHAR(255) NOT NULL,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP()
-);
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  nombre VARCHAR(100) NOT NULL
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS instructor (
-    instructor_id INT PRIMARY KEY AUTO_INCREMENT,
-    instructor_user_name VARCHAR(50) NOT NULL UNIQUE,
-    instructor_first_name VARCHAR(50) NOT NULL,
-    instructor_last_name VARCHAR(50) NOT NULL, 
-    instructor_email_address VARCHAR(100) NOT NULL UNIQUE,
-    instructor_phone_number VARCHAR(15) NOT NULL,
-    instructor_password_hash VARCHAR(255) NOT NULL,
-    instructor_created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
-    instructor_description TEXT NULL
-);
+-- Usuario de prueba
+INSERT IGNORE INTO users (username, password, nombre)
+VALUES ('admin@mastercook.com', '12345678', 'Admin MasterCook');
 
-CREATE TABLE IF NOT EXISTS booking_status (
-	booking_status_id INT PRIMARY KEY AUTO_INCREMENT,
-	booking_status_name VARCHAR(30) NOT NULL UNIQUE
-);
+-- Tabla de talleres
+CREATE TABLE IF NOT EXISTS talleres (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  categoria VARCHAR(100),
+  fecha DATE,
+  precio DECIMAL(10,2),
+  cupo INT
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-INSERT INTO booking_status (booking_status_name) VALUES
-('Confirmada'),
-('Cancelada'),
-('Completada');
+-- Talleres de prueba
+INSERT IGNORE INTO talleres (nombre, categoria, fecha, precio, cupo) VALUES
+('Repostería Creativa', 'Repostería', '2025-06-10', 150.00, 10),
+('Sushi Profesional', 'Cocina Internacional', '2025-06-15', 200.00, 8),
+('Pastas Artesanales', 'Cocina Italiana', '2025-06-20', 180.00, 12);
 
-CREATE TABLE IF NOT EXISTS category (
-	category_id INT PRIMARY KEY AUTO_INCREMENT,
-	category_name VARCHAR(50) NOT NULL UNIQUE
-);
- 
-CREATE TABLE IF NOT EXISTS workshop (
-	workshop_id INT PRIMARY KEY AUTO_INCREMENT,
-	workshop_name VARCHAR(50) NOT NULL,
-	workshop_description TEXT NULL,
-	quota INT NOT NULL check (quota >= 0),
-	workshop_start_date DATE NOT NULL,
-	workshop_end_date DATE NOT NULL,
-	price DECIMAL(7,2) NOT NULL,
-	status ENUM('Disponible', 'No disponible') DEFAULT 'Disponible',
-	instructor_id INT NULL,
-	FOREIGN KEY (instructor_id) REFERENCES instructor(instructor_id) ON DELETE SET NULL
-);
-
-CREATE TABLE IF NOT EXISTS workshop_category (
-	workshop_id INT NOT NULL,
-	category_id INT NOT NULL,
-	FOREIGN KEY (workshop_id) REFERENCES workshop(workshop_id) ON DELETE CASCADE,
-	FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE,
-	CONSTRAINT pk_workshop_category PRIMARY KEY (workshop_id, category_id)
-);
-
-CREATE TABLE IF NOT EXISTS booking (
-	booking_id INT PRIMARY KEY AUTO_INCREMENT,
-	user_id INT NOT NULL ,
-	workshop_id INT NOT NULL, 
-	booking_status_id INT NOT NULL,
-	booking_date DATETIME DEFAULT CURRENT_TIMESTAMP(),
-	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-	FOREIGN KEY (workshop_id) REFERENCES workshop(workshop_id) ON DELETE CASCADE,
-	FOREIGN KEY (booking_status_id) REFERENCES booking_status(booking_status_id) ON DELETE RESTRICT,
-	CONSTRAINT unique_user_workshop UNIQUE (user_id, workshop_id)
-);
-
-CREATE TABLE IF NOT EXISTS payment (
-	payment_id INT PRIMARY KEY AUTO_INCREMENT,
-	booking_id INT NOT NULL,
-	amount DECIMAL(7,2) NOT NULL, 
-	payment_date DATETIME DEFAULT CURRENT_TIMESTAMP(),
-	payment_status ENUM('Pendiente', 'Pagado') DEFAULT 'Pendiente',
-	authorization_code VARCHAR(100) NULL,
-	FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE
-);
-
-SELECT 'Inicialización completada' AS status;
-
-SHOW VARIABLES LIKE 'character_set%';
-SHOW VARIABLES LIKE 'collation%';
-
-/*!40101 SET NAMES utf8mb4 */;
-/*!40101 SET CHARACTER SET utf8mb4 */;
+-- Tabla de reservas
+CREATE TABLE IF NOT EXISTS reservas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT,
+  taller_id INT,
+  estado VARCHAR(50) DEFAULT 'Pendiente',
+  pagado BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (usuario_id) REFERENCES users(id),
+  FOREIGN KEY (taller_id) REFERENCES talleres(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
