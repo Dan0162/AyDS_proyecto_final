@@ -1,4 +1,17 @@
 services:
+  # Servicio de backend (Flask)
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=12345
+      - MYSQL_DATABASE=users_db
+      
   db:
     image: mysql:8.0
     restart: always
