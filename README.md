@@ -11,6 +11,7 @@
 ---
 
 **Diagrama de Arquitectura**
+![Diagrama de arquitectura AyDS drawio](https://github.com/user-attachments/assets/d159345a-2977-4328-82d6-84cd5cd8ec00)
 
 ---
 
