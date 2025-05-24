@@ -7,6 +7,7 @@
 
 
 **Diagrama de Actividad**
+Se encuentra en Documentación/Diagrama_actividad.pdf
 
 ---
 
@@ -16,5 +17,6 @@
 ---
 
 **Costos (PERT)**
+Se encuentra en Documentación/Análisis PERT MasterCook_Academy.pdf
 
 ---

@@ -1,48 +1,48 @@
-# Information Management API
+# API de Gestión de Información
 
-This directory contains the Flask application for managing information related to workshops or services. The application provides endpoints to retrieve and update information about available workshops.
+Este directorio contiene la aplicación Flask para gestionar la información relacionada con los talleres o servicios. La aplicación proporciona endpoints para consultar y actualizar información sobre los talleres disponibles.
 
-## Setup Instructions
+## Instrucciones de configuración
 
-1. **Clone the repository**:
+1. **Clonar el repositorio**:
    ```
    git clone <repository-url>
    cd flask-multi-container-app/info_management
    ```
 
-2. **Install dependencies**:
-   It is recommended to use a virtual environment. You can create one using:
+2. **Instalar dependencias**:
+   Se recomienda usar un entorno virtual. Puedes crear uno usando:
    ```
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
    ```
-   Then install the required packages:
+   Luego instala los paquetes requeridos:
    ```
    pip install -r requirements.txt
    ```
 
-3. **Run the application**:
-   You can start the Flask application by running:
+3. **Ejecutar la aplicación**:
+   Puedes iniciar la aplicación Flask ejecutando:
    ```
    python app.py
    ```
-   The application will be accessible at `http://localhost:5000`.
+   La aplicación estará accesible en `http://localhost:5000`.
 
-## Usage Examples
+## Ejemplos de uso
 
-- **Get all workshops**:
+- **Obtener todos los talleres**:
   ```
   GET /talleres
   ```
 
-- **Get details of a specific workshop**:
+- **Obtener detalles de un taller específico**:
   ```
   GET /talleres/<id>
   ```
 
-- **Update workshop information**:
+- **Actualizar información del taller**:
   ```
   PUT /talleres/<id>
   ```
 
-Make sure to refer to the `app.py` file for specific endpoint details and request/response formats.
+Asegúrate de consultar el archivo `app.py` para obtener detalles específicos sobre los endpoints y los formatos de solicitud/respuesta.
