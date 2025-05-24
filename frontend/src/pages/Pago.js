@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { paymentApi, infoApi } from '../api'; // changed import
+import { paymentApi, infoApi } from '../api';
 
 function Pago() {
   const { id } = useParams();
@@ -36,15 +36,19 @@ function Pago() {
     }
 
     try {
-      const res = await paymentApi.post('/pagar', { // changed api to paymentApi
+      const res = await paymentApi.post('/pagar', {
         usuario_id,
         taller_id: id
       });
 
       setMensaje(res.data.message);
       setTimeout(() => navigate('/mis-reservas'), 2000);
-    } catch {
-      setMensaje('Ocurrió un error al procesar el pago.');
+    } catch (err) {
+      if (err.response) {
+        setMensaje('Ocurrió un error al procesar el pago.');
+      } else {
+        setMensaje('El servicio de pagos no está disponible en este momento.');
+      }
     }
   };
 

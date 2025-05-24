@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginApi } from '../api'; // changed import
+import { loginApi } from '../api';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await loginApi.post('/login', { // changed api to loginApi
+      const res = await loginApi.post('/login', {
         username: email,
         password: password
       });
@@ -23,7 +23,11 @@ function Login() {
         navigate('/talleres');
       }
     } catch (err) {
-      setMensaje('Credenciales incorrectas. Intenta de nuevo.');
+      if (err.response) {
+        setMensaje('Credenciales incorrectas. Intenta de nuevo.');
+      } else {
+        setMensaje('Estamos teniendo problemas para comunicarnos con el servidor. Por favor intenta más tarde.');
+      }
     }
   };
 

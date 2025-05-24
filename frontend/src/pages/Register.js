@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginApi } from '../api'; // changed import
+import { loginApi } from '../api';
 
 function Register() {
   const [nombre, setNombre] = useState('');
@@ -18,7 +18,7 @@ function Register() {
     }
 
     try {
-      const res = await loginApi.post('/register', { // changed api to loginApi
+      const res = await loginApi.post('/register', {
         username: correo,
         password: password,
         nombre: nombre
@@ -30,7 +30,11 @@ function Register() {
         navigate('/talleres');
       }
     } catch (err) {
-      setMensaje('Error al registrar. Es posible que el correo ya esté en uso.');
+      if (err.response) {
+        setMensaje('Error al registrar. Es posible que el correo ya esté en uso.');
+      } else {
+        setMensaje('Estamos teniendo problemas para comunicarnos con el servidor. Por favor intenta más tarde..');
+      }
     }
   };
 

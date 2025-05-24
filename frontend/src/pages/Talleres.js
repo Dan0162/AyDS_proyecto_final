@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { infoApi } from '../api'; // changed import
+import { infoApi } from '../api';
 import TallerCard from '../components/TallerCard';
 
 function Talleres() {
@@ -10,10 +10,14 @@ function Talleres() {
   useEffect(() => {
     const fetchTalleres = async () => {
       try {
-        const res = await infoApi.get('/talleres'); // changed api to infoApi
+        const res = await infoApi.get('/talleres');
         setTalleres(res.data);
       } catch (err) {
-        setMensaje('Error al obtener talleres.');
+        if (err.response) {
+          setMensaje('Error al obtener talleres.');
+        } else {
+          setMensaje('El servicio de información no está disponible en este momento.');
+        }
       }
     };
 
