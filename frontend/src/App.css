@@ -1,0 +1,40 @@
+/* Fondo general claro */
+body {
+  background-color: #fff6e9;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Centraliza texto por defecto si se usa .App */
+.App {
+  text-align: center;
+}
+
+/* Logo si se reutiliza */
+.App-logo {
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Enlaces con color destacado */
+.App-link {
+  color: #d32f2f; /* rojo MasterCook */
+  text-decoration: none;
+}
+
+.App-link:hover {
+  text-decoration: underline;
+}
+
+.btn-oliva {
+  background-color: #6b8e23 !important;
+  color: #ffffff !important;
+  border: none !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-oliva:hover {
+  background-color: #666666 !important;
+  color: #ffffff !important;
+}

@@ -1,10 +1,9 @@
--- Crear la base de datos si no existe
+-- Crear la base de datos con codificación UTF-8
 CREATE DATABASE IF NOT EXISTS users_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE users_db;
 
--- Establecer el conjunto de caracteres
+-- Establecer codificación para la sesión
 SET NAMES 'utf8mb4';
-SET CHARACTER SET utf8mb4;
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (
@@ -12,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(100) UNIQUE NOT NULL,
   password VARCHAR(100) NOT NULL,
   nombre VARCHAR(100) NOT NULL
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+);
 
 -- Usuario de prueba
 INSERT IGNORE INTO users (username, password, nombre)
@@ -26,7 +25,7 @@ CREATE TABLE IF NOT EXISTS talleres (
   fecha DATE,
   precio DECIMAL(10,2),
   cupo INT
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+);
 
 -- Talleres de prueba
 INSERT IGNORE INTO talleres (nombre, categoria, fecha, precio, cupo) VALUES
@@ -43,4 +42,4 @@ CREATE TABLE IF NOT EXISTS reservas (
   pagado BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (usuario_id) REFERENCES users(id),
   FOREIGN KEY (taller_id) REFERENCES talleres(id)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+);
