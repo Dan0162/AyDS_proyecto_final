@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 CORS(app)
@@ -19,14 +20,14 @@ def login():
     if not data:
         return jsonify({"message": "Cuerpo de solicitud inválido o no es JSON"}), 400
     username = data.get("username")
-    password = data.get("password")
+    password_hash = data.get("password")  # Ahora recibimos el hash desde el frontend
 
     db = get_db_connection()
     cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
+    cursor.execute("SELECT * FROM users WHERE username=%s", (username,))
     user = cursor.fetchone()
 
-    if user:
+    if user and user["password"] == password_hash:
         return jsonify({
             "message": "Login exitoso",
             "usuario_id": user["id"],
@@ -41,7 +42,7 @@ def register():
     if not data:
         return jsonify({"message": "Cuerpo de solicitud inválido o no es JSON"}), 400
     username = data.get("username")
-    password = data.get("password")
+    password_hash = data.get("password")  # Ahora recibimos el hash desde el frontend
     nombre = data.get("nombre")
 
     db = get_db_connection()
@@ -56,7 +57,7 @@ def register():
     try:
         cursor.execute(
             "INSERT INTO users (username, password, nombre) VALUES (%s, %s, %s)",
-            (username, password, nombre)
+            (username, password_hash, nombre)
         )
         db.commit()
         cursor.execute("SELECT id FROM users WHERE username = %s", (username,))

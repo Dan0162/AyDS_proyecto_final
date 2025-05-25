@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS talleres (
 INSERT IGNORE INTO talleres (nombre, categoria, fecha, precio, cupo) VALUES
 ('Repostería Creativa', 'Repostería', '2025-06-10', 150.00, 10),
 ('Sushi Profesional', 'Cocina Internacional', '2025-06-15', 200.00, 8),
-('Pastas Artesanales', 'Cocina Italiana', '2025-06-20', 180.00, 12);
+('Pastas Artesanales', 'Cocina Italiana', '2025-06-20', 180.00, 12),
+('Fajitas', 'Cocina Mexicana', '2025-06-20', 180.00, 1);
+
 
 -- Tabla de reservas
 CREATE TABLE IF NOT EXISTS reservas (

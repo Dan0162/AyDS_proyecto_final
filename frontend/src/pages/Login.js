@@ -34,22 +34,18 @@ function Login() {
   return (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center px-3">
       <div
-        className="position-relative bg-white p-4 rounded shadow"
+        className="bg-white p-4 rounded shadow"
         style={{ width: '100%', maxWidth: '500px' }}
       >
-        <img
-          src="/logo.png"
-          alt="Logo MasterCook"
-          style={{
-            height: '100px',
-            position: 'absolute',
-            top: '20px',
-            left: '20px',
-            zIndex: 10
-          }}
-        />
+        <div className="text-center mb-4">
+          <img
+            src="/logo.png"
+            alt="Logo MasterCook"
+            style={{ height: '100px' }}
+          />
+        </div>
 
-        <h2 className="text-center mt-5 mb-4">Iniciar Sesión</h2>
+        <h2 className="text-center mb-4">Iniciar Sesión</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { infoApi } from '../api'; // changed import
+import { infoApi } from '../api';
 import { useNavigate } from 'react-router-dom';
 
 function MyBookings() {
   const [reservas, setReservas] = useState([]);
   const [mensaje, setMensaje] = useState('');
+  const [loading, setLoading] = useState(true); // <-- NUEVO
   const usuario_id = localStorage.getItem('usuario_id');
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const res = await infoApi.get(`/mis-reservas/${usuario_id}`); // changed api to infoApi
+        const res = await infoApi.get(`/mis-reservas/${usuario_id}`);
         setReservas(res.data);
+        // Guardar reservas en localStorage para que TallerCard pueda consultarlas
+        localStorage.setItem('reservas_usuario', JSON.stringify(res.data));
       } catch {
         setMensaje('Error al cargar tus reservas.');
+      } finally {
+        setLoading(false); // <-- NUEVO
       }
     };
 
+    setLoading(true); // <-- NUEVO
     fetchReservas();
   }, [usuario_id]);
 
   const eliminarReserva = async (taller_id) => {
     try {
-      const res = await infoApi.post('/eliminar-reserva', { // changed api to infoApi
+      const res = await infoApi.post('/eliminar-reserva', {
         usuario_id,
         taller_id
       });
       setMensaje(res.data.message);
-      setReservas(reservas.filter((r) => r.taller_id !== taller_id));
+      const nuevasReservas = reservas.filter((r) => r.taller_id !== taller_id);
+      setReservas(nuevasReservas);
+      localStorage.setItem('reservas_usuario', JSON.stringify(nuevasReservas));
     } catch {
       setMensaje('Error al eliminar la reserva.');
     }
@@ -40,7 +48,9 @@ function MyBookings() {
 
       {mensaje && <div className="alert alert-info text-center">{mensaje}</div>}
 
-      {reservas.length === 0 ? (
+      {loading ? (
+        <div className="alert alert-info text-center">Cargando reservas...</div>
+      ) : reservas.length === 0 ? (
         <div className="alert alert-warning text-center">
           Aún no has reservado ningún taller.
         </div>

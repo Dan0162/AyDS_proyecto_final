@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function TallerCard({ taller }) {
+function TallerCard({ taller, reservas = [] }) {
+  // Verifica si el usuario ya reservó este taller
+  const yaReservado = reservas.some(
+    (r) => String(r.taller_id) === String(taller.id)
+  );
+  const sinCupo = taller.cupo <= 0;
+
   return (
     <div className="col-12 col-sm-6 col-md-4 mb-4 d-flex">
       <div className="card flex-fill h-100 shadow-sm">
@@ -20,12 +26,22 @@ function TallerCard({ taller }) {
             )}
           </p>
           <div className="mt-auto">
-            <Link
-              to={`/reserva/${taller.id}`}
-              className="btn btn-oliva w-100 mt-2"
-            >
-              Reservar Taller
-            </Link>
+            {sinCupo ? (
+              <button className="btn btn-secondary w-100 mt-2" disabled>
+                No hay cupos disponibles
+              </button>
+            ) : yaReservado ? (
+              <button className="btn btn-secondary w-100 mt-2" disabled>
+                Curso Reservado
+              </button>
+            ) : (
+              <Link
+                to={`/reserva/${taller.id}`}
+                className="btn btn-oliva w-100 mt-2"
+              >
+                Reservar Taller
+              </Link>
+            )}
           </div>
         </div>
       </div>
