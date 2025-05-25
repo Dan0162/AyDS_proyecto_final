@@ -1,14 +1,7 @@
 **Diagrama de Casos de Uso**
 
-![Casos de Uso Proyecto Final ADS](https://github.com/user-attachments/assets/ec3386f7-7cdd-4142-a192-440d1960fdf0)
+![Casos de Uso Proyecto Final ADS drawio](https://github.com/user-attachments/assets/fd421e7a-beb1-492b-b843-65aa51a0f484)
 
-
----
-
-
-**Diagrama de Actividad**
-
-Se encuentra en Documentación/Diagrama_actividad.pdf
 
 ---
 
@@ -21,5 +14,12 @@ Se encuentra en Documentación/Diagrama_actividad.pdf
 **Costos (PERT)**
 
 Se encuentra en Documentación/Análisis PERT MasterCook_Academy.pdf
+
+---
+
+
+**Diagrama de Actividad**
+
+Se encuentra en Documentación/Diagrama_actividad.pdf
 
 ---
