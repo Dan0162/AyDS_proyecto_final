@@ -13,7 +13,8 @@ Se encuentra en Documentación/Diagrama_actividad.pdf
 ---
 
 **Diagrama de Arquitectura**
-![Diagrama de arquitectura AyDS drawio](https://github.com/user-attachments/assets/d159345a-2977-4328-82d6-84cd5cd8ec00)
+
+![Diagrama de arquitectura AyDS drawio](https://github.com/user-attachments/assets/28ba0ea6-9ca7-4ae1-b9cf-f50ed7f664d2)
 
 ---
 
