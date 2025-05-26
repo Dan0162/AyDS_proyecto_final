@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import DarkModeButton from './DarkModeButton'; // <-- Import
 
 function AppNavbar() {
   const [nombreUsuario, setNombreUsuario] = useState('');
@@ -34,11 +35,13 @@ function AppNavbar() {
                 <Button onClick={cerrarSesion} variant="outline-dark" size="sm">
                   Cerrar sesión
                 </Button>
+                <DarkModeButton /> {/* <-- Add here */}
               </>
             ) : (
               <>
                 <Nav.Link as={Link} to="/">Iniciar Sesión</Nav.Link>
                 <Nav.Link as={Link} to="/register">Registrarse</Nav.Link>
+                <DarkModeButton /> {/* <-- Add here */}
               </>
             )}
           </Nav>

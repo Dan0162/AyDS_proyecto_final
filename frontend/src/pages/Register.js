@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginApi } from '../api';
+import DarkModeButton from '../components/DarkModeButton';
 
 function Register() {
   const [nombre, setNombre] = useState('');
@@ -107,8 +108,19 @@ function Register() {
   const passwordStrength = getPasswordStrength();
 
   return (
-    <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center px-3">
-      <div className="bg-white p-4 rounded shadow" style={{ maxWidth: '500px', width: '100%' }}>
+    <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center px-3 position-relative">
+      <div style={{
+        position: 'fixed',
+        top: 16,
+        right: 24,
+        zIndex: 1050
+      }}>
+        <DarkModeButton />
+      </div>
+      <div
+        className="bg-white p-4 rounded shadow"
+        style={{ width: '100%', maxWidth: '500px' }}
+      >
         <div className="text-center mb-4">
           <img
             src="/logo.png"

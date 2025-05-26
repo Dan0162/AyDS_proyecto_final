@@ -12,6 +12,7 @@ function Pago() {
   const [vencimiento, setVencimiento] = useState('');
   const [cvv, setCvv] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false); // Add this state
 
   const usuario_id = localStorage.getItem('usuario_id');
 
@@ -61,6 +62,7 @@ function Pago() {
 
     setIsLoading(true);
     setMensaje('');
+    setSuccess(false); // Reset on new attempt
 
     if (!tarjeta) {
       setMensaje('Por favor ingresa el número de tarjeta.');
@@ -100,8 +102,10 @@ function Pago() {
       });
 
       setMensaje(res.data.message);
+      setSuccess(true); // Set success to true
       setTimeout(() => navigate('/mis-reservas'), 2000);
     } catch (err) {
+      setSuccess(false); // Not a success
       if (err.response) {
         setMensaje('Ocurrió un error al procesar el pago.');
       } else {
@@ -183,7 +187,9 @@ function Pago() {
                 )}
               </button>
               {mensaje && (
-                <div className="alert alert-info text-center mt-3">{mensaje}</div>
+                <div className={`alert text-center mt-3 ${success ? 'alert-success' : 'alert-info'}`}>
+                  {mensaje}
+                </div>
               )}
             </form>
           </>

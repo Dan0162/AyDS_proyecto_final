@@ -38,3 +38,103 @@ body {
   background-color: #666666 !important;
   color: #ffffff !important;
 }
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #181818 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-mode .bg-white,
+.dark-mode .card,
+.dark-mode .navbar,
+.dark-mode .shadow,
+.dark-mode .rounded {
+  background-color: #232323 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-mode .btn,
+.dark-mode .btn-oliva,
+.dark-mode .btn-danger,
+.dark-mode .btn-success {
+  border-color: #444 !important;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select,
+.dark-mode .form-control,
+.dark-mode .form-select {
+  background-color: #232323 !important;
+  color: #f1f1f1 !important;
+  border-color: #444 !important;
+  caret-color: #f1f1f1 !important;
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder {
+  color: #bbbbbb !important;
+  opacity: 1;
+}
+
+.dark-mode input:-webkit-autofill,
+.dark-mode input:-webkit-autofill:focus,
+.dark-mode input:-webkit-autofill:hover,
+.dark-mode input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #232323 inset !important;
+  -webkit-text-fill-color: #f1f1f1 !important;
+  caret-color: #f1f1f1 !important;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select {
+  background-color: #232323 !important;
+  color: #f1f1f1 !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .alert {
+  background-color: #222 !important;
+  color: #f1f1f1 !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .navbar,
+.dark-mode .navbar-light {
+  background-color: #232323 !important;
+}
+
+.dark-mode .nav-link,
+.dark-mode .navbar-brand,
+.dark-mode .navbar-text {
+  color: #f1f1f1 !important;
+}
+
+.dark-mode .progress-bar {
+  background-color: #444 !important;
+}
+
+/* Fix progress bar colors in dark mode */
+.dark-mode .progress-bar.bg-danger {
+  background-color: #e74c3c !important;
+}
+.dark-mode .progress-bar.bg-warning {
+  background-color: #f1c40f !important;
+}
+.dark-mode .progress-bar.bg-success {
+  background-color: #27ae60 !important;
+}
+
+.dark-mode .btn-outline-dark {
+  color: #f1f1f1 !important;
+  border-color: #f1f1f1 !important;
+  background-color: transparent !important;
+}
+
+.dark-mode .btn-outline-dark:hover,
+.dark-mode .btn-outline-dark:focus {
+  background-color: #f1f1f1 !important;
+  color: #232323 !important;
+  border-color: #f1f1f1 !important;
+}
