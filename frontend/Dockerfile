@@ -10,6 +10,9 @@ COPY package*.json ./
 # Instala las dependencias listadas en package.json dentro del contenedor
 RUN npm install
 
+# Copia el resto de los archivos de la aplicación al directorio de trabajo
+COPY . .
+
 # Define el comando por defecto para ejecutar el contenedor:
 # iniciar la aplicación
 CMD ["npm", "start"]
