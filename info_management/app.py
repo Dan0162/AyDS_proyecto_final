@@ -64,7 +64,7 @@ def reservar():
             (taller_id,)
         )
         db.commit()
-        return jsonify({"message": "Reserva realizada con éxito"})
+        return jsonify({"message": "Reserva realizada con éxito. Redireccionando a la pasarela de pago."})
     except mysql.connector.Error as err:
         return jsonify({"message": f"Error al reservar: {err}"}), 400
 

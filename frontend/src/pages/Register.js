@@ -9,6 +9,7 @@ function Register() {
   const [mensaje, setMensaje] = useState('');
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // Password validation function
@@ -54,7 +55,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     // Validate password before submission
     const errors = validatePassword(password);
     if (errors.length > 0) {
@@ -62,6 +63,9 @@ function Register() {
       setMensaje('Por favor corrige los errores en la contraseña.');
       return;
     }
+
+    setIsLoading(true);
+    setMensaje('');
 
     try {
       const res = await loginApi.post('/register', {
@@ -76,11 +80,15 @@ function Register() {
         navigate('/talleres');
       }
     } catch (err) {
-      if (err.response) {
-        setMensaje('Error al registrar. Es posible que el correo ya esté en uso.');
+      if (err.response && err.response.data && err.response.data.message) {
+        setMensaje(err.response.data.message);
+      } else if (err.response && err.response.data && err.response.data.error) {
+        setMensaje(err.response.data.message);
       } else {
         setMensaje('Estamos teniendo problemas para comunicarnos con el servidor. Por favor intenta más tarde.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -121,6 +129,7 @@ function Register() {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
           
@@ -132,6 +141,7 @@ function Register() {
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
           
@@ -144,6 +154,7 @@ function Register() {
                 value={password}
                 onChange={handlePasswordChange}
                 required
+                disabled={isLoading}
               />
               <button
                 type="button"
@@ -157,6 +168,7 @@ function Register() {
                 }}
                 onClick={() => setShowPassword(!showPassword)}
                 tabIndex={-1}
+                disabled={isLoading}
               >
                 {showPassword ? '🙈' : '👁️'}
               </button>
@@ -210,10 +222,23 @@ function Register() {
 
           <button 
             type="submit" 
-            className="btn btn-success w-100"
-            disabled={passwordErrors.length > 0}
+            className="btn btn-success w-100 d-flex align-items-center justify-content-center"
+            disabled={passwordErrors.length > 0 || isLoading}
           >
-            Registrarse
+            {isLoading ? (
+              <>
+                <div 
+                  className="spinner-border spinner-border-sm me-2" 
+                  role="status"
+                  style={{ width: '1rem', height: '1rem' }}
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                Registrando...
+              </>
+            ) : (
+              'Registrarse'
+            )}
           </button>
 
           {mensaje && <div className="alert alert-info text-center mt-3">{mensaje}</div>}

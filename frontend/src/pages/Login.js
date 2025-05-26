@@ -6,10 +6,13 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setMensaje('');
 
     try {
       const res = await loginApi.post('/login', {
@@ -23,11 +26,15 @@ function Login() {
         navigate('/talleres');
       }
     } catch (err) {
-      if (err.response) {
-        setMensaje('Credenciales incorrectas. Intenta de nuevo.');
+      if (err.response && err.response.data && err.response.data.message) {
+        setMensaje(err.response.data.message);
+      } else if (err.response && err.response.data && err.response.data.error) {
+        setMensaje(err.response.data.message);
       } else {
         setMensaje('Estamos teniendo problemas para comunicarnos con el servidor. Por favor intenta más tarde.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,6 +64,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="ejemplo@correo.com"
+              disabled={isLoading}
             />
           </div>
           <div className="mb-3">
@@ -68,10 +76,28 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="********"
+              disabled={isLoading}
             />
           </div>
-          <button type="submit" className="btn btn-danger w-100">
-            Iniciar Sesión
+          <button 
+            type="submit" 
+            className="btn btn-danger w-100 d-flex align-items-center justify-content-center"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <div 
+                  className="spinner-border spinner-border-sm me-2" 
+                  role="status"
+                  style={{ width: '1rem', height: '1rem' }}
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                Iniciando sesión...
+              </>
+            ) : (
+              'Iniciar Sesión'
+            )}
           </button>
 
           {mensaje && (

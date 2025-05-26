@@ -11,6 +11,7 @@ function Pago() {
   const [tarjeta, setTarjeta] = useState('');
   const [vencimiento, setVencimiento] = useState('');
   const [cvv, setCvv] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const usuario_id = localStorage.getItem('usuario_id');
 
@@ -58,28 +59,37 @@ function Pago() {
   const handlePago = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+    setMensaje('');
+
     if (!tarjeta) {
       setMensaje('Por favor ingresa el número de tarjeta.');
+      setIsLoading(false);
       return;
     }
     if (!vencimiento) {
       setMensaje('Por favor ingresa la fecha de vencimiento.');
+      setIsLoading(false);
       return;
     }
     if (!cvv) {
       setMensaje('Por favor ingresa el CVV.');
+      setIsLoading(false);
       return;
     }
     if (!isValidCardNumber(tarjeta)) {
       setMensaje('El número de tarjeta debe tener 16 dígitos.');
+      setIsLoading(false);
       return;
     }
     if (!isValidVencimiento(vencimiento)) {
       setMensaje('El vencimiento debe tener formato MM/AA y ser válido.');
+      setIsLoading(false);
       return;
     }
     if (!isValidCvv(cvv)) {
       setMensaje('El CVV debe tener 3 o 4 dígitos.');
+      setIsLoading(false);
       return;
     }
 
@@ -97,6 +107,8 @@ function Pago() {
       } else {
         setMensaje('El servicio de pagos no está disponible en este momento.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -154,8 +166,21 @@ function Pago() {
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-success w-100">
-                Confirmar pago y reservar
+              <button type="submit" className="btn btn-success w-100 d-flex align-items-center justify-content-center" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <div
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      style={{ width: '1rem', height: '1rem' }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    Procesando pago...
+                  </>
+                ) : (
+                  'Confirmar pago y reservar'
+                )}
               </button>
               {mensaje && (
                 <div className="alert alert-info text-center mt-3">{mensaje}</div>

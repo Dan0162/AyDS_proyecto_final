@@ -7,6 +7,7 @@ function Reserva() {
   const navigate = useNavigate();
   const [taller, setTaller] = useState(null);
   const [mensaje, setMensaje] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const usuario_id = localStorage.getItem('usuario_id');
 
   useEffect(() => {
@@ -23,6 +24,14 @@ function Reserva() {
   }, [id]);
 
   const reservarTaller = async () => {
+    if (!usuario_id) {
+      setMensaje('Error: No se encontró información del usuario. Por favor inicia sesión nuevamente.');
+      return;
+    }
+
+    setIsLoading(true);
+    setMensaje('');
+
     try {
       const res = await infoApi.post('/reservar', {
         usuario_id,
@@ -30,7 +39,7 @@ function Reserva() {
       });
 
       setMensaje(res.data.message);
-      setTimeout(() => navigate('/mis-reservas'), 2000);
+      navigate('/mis-reservas'); // Elimina el setTimeout, navega inmediatamente
     } catch (err) {
       console.log(err);
       if (
@@ -46,6 +55,8 @@ function Reserva() {
       } else {
         setMensaje('Ocurrió un error al reservar.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,8 +72,25 @@ function Reserva() {
             <p><strong>Precio:</strong> Q{taller.precio}</p>
             <p><strong>Cupo disponible:</strong> {taller.cupo}</p>
 
-            <button className="btn btn-danger w-100 mt-3" onClick={reservarTaller}>
-              Confirmar Reserva
+            <button 
+              className="btn btn-danger w-100 mt-3 d-flex align-items-center justify-content-center" 
+              onClick={reservarTaller}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <div 
+                    className="spinner-border spinner-border-sm me-2" 
+                    role="status"
+                    style={{ width: '1rem', height: '1rem' }}
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  Confirmando reserva...
+                </>
+              ) : (
+                'Confirmar Reserva'
+              )}
             </button>
 
             {mensaje && <div className="alert alert-info text-center mt-3">{mensaje}</div>}
