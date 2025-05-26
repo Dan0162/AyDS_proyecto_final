@@ -78,6 +78,7 @@ def mis_reservas(usuario_id):
             r.taller_id,
             t.nombre AS nombre_taller,
             t.fecha,
+            t.categoria,  
             r.pagado,
             r.estado
         FROM reservas r

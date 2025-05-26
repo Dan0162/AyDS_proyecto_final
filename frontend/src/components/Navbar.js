@@ -13,7 +13,12 @@ function AppNavbar() {
   }, []);
 
   const cerrarSesion = () => {
+    // Preserve dark mode preference before clearing storage
+    const darkMode = localStorage.getItem('darkMode');
     localStorage.clear();
+    if (darkMode !== null) {
+      localStorage.setItem('darkMode', darkMode);
+    }
     navigate('/');
   };
 

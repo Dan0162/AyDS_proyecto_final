@@ -52,6 +52,8 @@ body.dark-mode {
 .dark-mode .rounded {
   background-color: #232323 !important;
   color: #f1f1f1 !important;
+  border: 1.5px solid #444 !important; /* Más visible en dark mode */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.7) !important;
 }
 
 .dark-mode .btn,
@@ -130,6 +132,70 @@ body.dark-mode {
   color: #f1f1f1 !important;
   border-color: #f1f1f1 !important;
   background-color: transparent !important;
+}
+
+.dark-mode .btn-outline-dark:hover,
+.dark-mode .btn-outline-dark:focus {
+  background-color: #f1f1f1 !important;
+  color: #232323 !important;
+  border-color: #f1f1f1 !important;
+}
+
+body.dark-mode,
+.dark-mode .bg-white,
+.dark-mode .card,
+.dark-mode .navbar,
+.dark-mode .shadow,
+.dark-mode .rounded,
+.dark-mode .modal-content {
+  background-color: #232323 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6,
+.dark-mode p,
+.dark-mode label,
+.dark-mode .form-label,
+.dark-mode .card-title,
+.dark-mode .card-text {
+  color: #f1f1f1 !important;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select,
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background-color: #232323 !important;
+  color: #f1f1f1 !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .alert {
+  background-color: #222 !important;
+  color: #f1f1f1 !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .dropdown-menu,
+.dark-mode .form-select {
+  background-color: #232323 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-mode .btn,
+.dark-mode .btn-oliva,
+.dark-mode .btn-danger,
+.dark-mode .btn-success,
+.dark-mode .btn-outline-danger,
+.dark-mode .btn-outline-dark {
+  border-color: #444 !important;
+  color: #f1f1f1 !important;
 }
 
 .dark-mode .btn-outline-dark:hover,
