@@ -12,7 +12,7 @@ Master Cook Academy necesita desarrollar una plataforma web para permitir que su
 
 **Diagrama de Casos de Uso**
 
-![Casos de Uso Proyecto Final ADS drawio](https://github.com/user-attachments/assets/fd421e7a-beb1-492b-b843-65aa51a0f484)
+![Casos de Uso Proyecto Final ADS drawio](https://github.com/user-attachments/assets/5da3576b-ba83-43dc-9413-bc63aef95487)
 
 
 ---
