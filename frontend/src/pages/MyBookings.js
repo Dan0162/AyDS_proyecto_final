@@ -76,7 +76,21 @@ function MyBookings() {
         </select>
       </div>
 
-      {mensaje && <div className="alert alert-info text-center">{mensaje}</div>}
+      {mensaje && (
+        <div className={`alert text-center mt-3 ${
+          mensaje.toLowerCase().includes('error') ||
+          mensaje.toLowerCase().includes('problema') ||
+          mensaje.toLowerCase().includes('no se pudo') ||
+          mensaje.toLowerCase().includes('no está disponible') ||
+          mensaje.toLowerCase().includes('conflicto') ||
+          mensaje.toLowerCase().includes('inválido') ||
+          mensaje.toLowerCase().includes('invalido')
+            ? 'alert-danger'
+            : 'alert-info'
+        }`}>
+          {mensaje}
+        </div>
+      )}
 
       {loading ? (
         <div className="alert alert-info text-center">Cargando reservas...</div>

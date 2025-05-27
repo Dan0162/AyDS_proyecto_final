@@ -6,7 +6,7 @@ function ProtectedLayout({ children }) {
   const usuario_id = localStorage.getItem('usuario_id');
 
   if (!usuario_id) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (

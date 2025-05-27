@@ -187,7 +187,11 @@ function Pago() {
                 )}
               </button>
               {mensaje && (
-                <div className={`alert text-center mt-3 ${success ? 'alert-success' : 'alert-info'}`}>
+                <div className={`alert text-center mt-3 ${
+                  success
+                    ? 'alert-success'
+                    : 'alert-danger'
+                }`}>
                   {mensaje}
                 </div>
               )}

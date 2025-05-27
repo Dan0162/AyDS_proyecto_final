@@ -253,7 +253,28 @@ function Register() {
             )}
           </button>
 
-          {mensaje && <div className="alert alert-info text-center mt-3">{mensaje}</div>}
+          {mensaje && (
+            <div className={`alert text-center mt-3 ${
+              // Show red for any error, conflict, or server problem
+              mensaje.toLowerCase().includes('error') ||
+              mensaje.toLowerCase().includes('problema') ||
+              mensaje.toLowerCase().includes('registrado') ||
+              mensaje.toLowerCase().includes('no se pudo') ||
+              mensaje.toLowerCase().includes('no está disponible') ||
+              mensaje.toLowerCase().includes('corrige') ||
+              mensaje.toLowerCase().includes('ya existe') ||
+              mensaje.toLowerCase().includes('ya tienes') ||
+              mensaje.toLowerCase().includes('ya tenés') ||
+              mensaje.toLowerCase().includes('incorrecta') ||
+              mensaje.toLowerCase().includes('conflicto') ||
+              mensaje.toLowerCase().includes('inválido') ||
+              mensaje.toLowerCase().includes('invalido')
+                ? 'alert-danger'
+                : 'alert-info'
+            }`}>
+              {mensaje}
+            </div>
+          )}
 
           <div className="text-center mt-3">
             ¿Ya tenés cuenta?{' '}
